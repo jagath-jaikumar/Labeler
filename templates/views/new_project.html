@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="section no-pad-bot" id="index-banner">
+  <div class="container">
+    <br><br>
+    <h1 class="header center blue-text">New Project</h1>
+    <div class="row">
+
+
+
+    <form action="{{ url_for('newprojecthandler') }}" id="newproject" class="col s12" method="POST">
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input name="name" placeholder="MyData" id="name" type="text" class="validate">
+          <label for="first_name">Project Name</label>
+          <span class="helper-text" data-error="Please enter a valid input directory" data-success="Awesome!"></span>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input name="input" placeholder="Datasets/mydata" id="fromdir" type="text" class="validate">
+          <label for="first_name">Flat Directory of Files</label>
+          <span class="helper-text" data-error="Please enter a valid input directory" data-success="Cool!"></span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="output" placeholder="Datasets/mydata/labels" id="output" type="text" class="validate">
+          <label for="password">Output Directory</label>
+          <span class="helper-text" data-error="Please enter a valid output directory" data-success="Good job!"></span>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="labels" id="email" type="text", pattern="^[0-9a-zA-z ]+(,[0-9a-zA-z ]+){0,20}$" class="validate">
+          <label for="email">Comma Separated Image Labels</label>
+          <span class="helper-text" data-error="Labels are not comma separated or exceed 20 total labels" data-success="Let's Go!">Cat,dog,mouse etc.</span>
+        </div>
+      </div>
+
+
+      <div class="row center">
+            <button type="submit" name="begin" class="btn-large waves-effect waves-light orange" value="over">Start!</button>
+      </div>
+
+    </form>
+  </div>
+
+
+
+
+
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <!-- <h1 class="header center blue-text">Label Ages</h1> -->
+      <div class="row center">
+        {% if 'No file specified' in data %}
+          <h5 class="header col s12 light">{{ data }}</h5>
+            <a href="/save/m/begin"><button type="submit" name="begin" class="btn-large waves-effect waves-light orange" value="over">Start Labeling</button>
+        {% else %}
+        <h5 class="header col s12 light">{{ dname }}</h5>
+          <img src="" id="img" alt="Chart" height="250" width="250">
+
+          <script>
+              data = "{{data}}"
+              data = data.replace("b&#39;", "") //to get rid of start curly brace code
+              data = data.replace("&#39;", "")  //to get rid of end curly bracecode
+
+              document.getElementById("img").src = "data:image/png;base64,"+data; // set src
+          </script>
+
+
+
+          <div class="row">
+
+
+
+          <form action="{{ url_for('submitlabels', fname=fpath) }}" id="newproject" class="col s12" method="POST">
+            {% for label in labels %}
+            <p>
+                <label>
+                  <input name="{{label}}" type="checkbox" />
+                    <span>{{label}}</span>
+                  </label>
+                </p>
+          {% endfor %}
+
+
+
+            <div class="row center">
+                  <button type="submit" name="{{fpath}}" class="btn-large waves-effect waves-light orange" value="over">Next</button>
+            </div>
+
+          </form>
+        </div>
+
+
+
+
+
+          <!-- <div class="row center">
+            <a href="/save/{{fpath}}/over"><button type="submit" name="over18" class="btn-large waves-effect waves-light orange" value="{{fpath}}">Over 18</button>
+          </div>
+          <div class="row center">
+            <a href="/save/{{fpath}}/under"><button type="submit" name="under18" class="btn-large waves-effect waves-light purple" value="{{fpath}}">Under 18</button>
+          </div> -->
+          <br><br>
+        {% endif %}
+
+
+      </div>
+
+
+    </div>
+  </div>
+{% endblock %}
