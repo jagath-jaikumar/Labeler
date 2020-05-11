@@ -12,6 +12,9 @@
           <th>Project Name</th>
           <th>Input</th>
           <th>Output</th>
+          <th>Completed Labels</th>
+          <th>Total Images</th>
+
         </tr>
       </thead>
       <tbody>
@@ -20,6 +23,9 @@
         <td> <a href="/set/{{project['name']}}">{{project["name"]}}</td>
         <td>{{project["input"]}}</td>
         <td>{{project["output"]}}</td>
+        <td>{{project["n_complete"]}}</td>
+        <td>{{project["n_total"]}}</td>
+        <td><a href="{{ url_for('deleteproject', pname=project['name']) }}"><i class="small material-icons">delete_forever</i></td>
       </tr>
     {% endfor %}
   </tbody>

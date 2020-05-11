@@ -3,7 +3,7 @@ import os
 import base64
 import random
 import pandas as pd
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
 
 
 #########################
@@ -28,6 +28,22 @@ app = Flask(__name__, static_folder='static')
 
 @app.route("/")
 def homepage():
+
+    projects = db.all()
+    Q = Query()
+    for project in projects:
+        n_total = len(os.listdir(project["input"]))
+        com = []
+        try:
+            with open(project["output"]) as f:
+                for row in f:
+                    com.append(row.split(",")[0])
+        except:
+            print("error...label file missing for this project!")
+        n_complete = len(com) - 1
+
+        db.upsert({'n_total':n_total, 'n_complete':n_complete}, Q.name == project["name"])
+
 
     projects = db.all()
 
@@ -93,6 +109,11 @@ def renderimage(fpath = None):
     data = encoded_string
 
     return render_template('views/label_main.html', data = data, fpath = fpath, dname = name, labels = click_labels)
+
+@app.route("/deleteproject/<pname>")
+def deleteproject(pname):
+    db.remove(where('name') == pname)
+    return redirect("/")
 
 
 @app.route("/save/<fpath>/<type>")
